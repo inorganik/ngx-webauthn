@@ -35,7 +35,7 @@ $link-decoration:       rgb(38, 79, 131);
 $link-hover-decoration: underline;
 
 $body-bg:               white;
-$body-color:						$black;
+$body-color:						$gray-800;
 
 //
 // FORMS
@@ -83,3 +83,9 @@ $grid-breakpoints: (
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+//
+// TYPOGRAPHY
+//
+
+$headings-font-weight: 700;
