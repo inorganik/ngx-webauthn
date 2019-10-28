@@ -1,6 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
-// customizing bootstrap, this MUST COME BEFORE bootstrap files
 @import 'variables.scss';
-
 @import '~bootstrap/scss/bootstrap';
+
+
+h1 {
+  font-weight: 700;
+}
+
+@mixin gradient() {
+  // colorzilla.com/gradient-editor/#9cf253+0,09d3ff+100
+  background: -moz-linear-gradient(-45deg,  #9cf253 0%, #09d3ff 100%);
+  background: -webkit-linear-gradient(-45deg,  #9cf253 0%,#09d3ff 100%);
+  background: linear-gradient(135deg,  #9cf253 0%,#09d3ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9cf253', endColorstr='#09d3ff',GradientType=1 );
+}
+
+.btn-primary {
+  color: white;
+  @include gradient();
+}
+
+.btn-secondary {
+  background: white;
+  @include gradient();
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-muted {
+  opacity: 0.6;
+}
