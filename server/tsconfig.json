@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "lib": ["es6", "dom"],
     "module": "commonjs",
@@ -6,13 +7,9 @@
     "outDir": "../dist",
     "sourceMap": true,
     "target": "es6",
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
   },
   "compileOnSave": true,
   "include": [
     "src"
-  ],
-  "exclude": []
+  ]
 }

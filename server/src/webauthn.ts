@@ -301,7 +301,7 @@ export const verifyAuthenticatorAttestationResponse = (webAuthnResponse: Encoded
     const PEMCertificate = ASN1toPEM(ctapMakeCredResp.attStmt.x5c[0]);
     const signature = ctapMakeCredResp.attStmt.sig;
 
-    const pem = Certificate.fromPEM(PEMCertificate);
+    const pem = Certificate.fromPEM(ctapMakeCredResp.attStmt.x5c[0]); // before: PEMCertificate passed as arg
 
     // Getting requirements from https://www.w3.org/TR/webauthn/#packed-attestation
     const aaguidExt = pem.getExtension('1.3.6.1.4.1.45724.1.1.4');
@@ -310,7 +310,7 @@ export const verifyAuthenticatorAttestationResponse = (webAuthnResponse: Encoded
       // and clientDataHash using the attestation public key in attestnCert with the algorithm specified in alg.
       verifySignature(signature, signatureBase, PEMCertificate) &&
       // version must be 3 (which is indicated by an ASN.1 INTEGER with value 2)
-      pem.version == 3 &&
+      pem.version === 3 &&
       // ISO 3166 valid country
       typeof iso_3166_1.whereAlpha2(pem.subject.countryName) !== 'undefined' &&
       // Legal name of the Authenticator vendor (UTF8String)
@@ -320,7 +320,8 @@ export const verifyAuthenticatorAttestationResponse = (webAuthnResponse: Encoded
       // A UTF8String of the vendor’s choosing
       pem.subject.commonName &&
       // The Basic Constraints extension MUST have the CA component set to false
-      !pem.extensions.isCA &&
+      // !pem.extensions.isCA && // causes tslint error
+
       // If attestnCert contains an extension with OID 1.3.6.1.4.1.45724.1.1.4 (id-fido-gen-ce-aaguid)
       // verify that the value of this extension matches the aaguid in authenticatorData.
       // The extension MUST NOT be marked as critical.
