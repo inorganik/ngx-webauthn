@@ -28,6 +28,7 @@
     "iso-3166-1": "^1.1.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
+    "webauthn": "^0.1.2",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
