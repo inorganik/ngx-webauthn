@@ -3,16 +3,17 @@
     <div class="card">
       <div class="card-body text-center">
         <h2 class="text-muted">Register</h2>
-        <form class="mt-5">
+        <form class="mt-5" [formGroup]="registerGroup" (ngSubmit)="submit()">
           <div class="form-group">
-            <input type="text" class="form-control" id="name" placeholder="Name" autocomplete="off">
+            <input type="email" class="form-control" formControlName="email" placeholder="Email" autocomplete="off">
           </div>
           <div class="form-group">
-            <input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off">
+            <input type="text" class="form-control" formControlName="name" placeholder="Name" autocomplete="off">
           </div>
           <button type="submit" class="btn btn-primary mt-3"><img src="assets/lock.svg" width="20" class="mr-3">Submit</button>
           <button type="submit" class="btn btn-secondary d-block mx-auto mt-2" [routerLink]="['/login']">Login</button>
         </form>
+        <p *ngIf="error" class="error">{{ error }}</p>
       </div>
     </div>
   </div>
