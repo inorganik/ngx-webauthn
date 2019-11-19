@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+import { MakePublicKeyCredentialOptions } from './webauthn.models';
 
 export interface User {
   email: string;
@@ -17,14 +18,14 @@ export class WebauthnService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user: User): Observable<any> { // todo: type
+  registerUser(user: User): Observable<MakePublicKeyCredentialOptions> {
     const url = `${this.pathPrefix}/register`;
     const opts = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post(url, user, opts).pipe(
+    return this.http.post<MakePublicKeyCredentialOptions>(url, user, opts).pipe(
       catchError(err => this.handleError(err))
     );
   }
