@@ -1,6 +1,6 @@
 export type AttestationType = 'direct' | 'indirect' | 'none';
 
-export interface MakePublicKeyCredentialOptions {
+export interface PublicKeyCredentialOptions {
   challenge: string;
   rp: PublicKeyRelyingPartyInfo;
   user: PublicKeyUserInfo;

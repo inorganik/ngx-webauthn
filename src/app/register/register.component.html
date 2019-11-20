@@ -13,7 +13,7 @@
           <button type="submit" class="btn btn-primary mt-3"><img src="assets/lock.svg" width="20" class="mr-3">Submit</button>
           <button type="submit" class="btn btn-secondary d-block mx-auto mt-2" [routerLink]="['/login']">Login</button>
         </form>
-        <p *ngIf="error" class="error">{{ error }}</p>
+        <div *ngIf="error" class="alert alert-danger text-left" role="alert">{{ error }}</div>
       </div>
     </div>
   </div>

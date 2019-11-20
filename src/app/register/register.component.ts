@@ -25,8 +25,10 @@ export class RegisterComponent implements OnInit {
     this.error = '';
     if (this.registerGroup.valid) {
       this.webauthnService.registerUser(this.registerGroup.value).subscribe(response => {
-        console.log('register response', response);
-      });
+        if (response.status === 'ok') {
+          // todo: route to auth-guarded route
+        }
+      }, error => this.error = error);
     } else {
       this.error = 'Please correct the errors above.';
     }

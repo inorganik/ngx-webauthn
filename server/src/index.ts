@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, '../../dist/ngx-webauthn')));
 
 // webauthn routes
 const webauthn = new WebAuthn({
-  origin: `http://localhost:${port}`,
+  origin: `http://localhost:4200`,
   usernameField: 'email', // field that uniquely id's user
   userFields: {
     email: 'email',
