@@ -9,7 +9,11 @@ import base64url from 'webauthn/client/base64url.js';
 
 export interface User {
   email: string;
-  name: string;
+  name?: string;
+}
+
+export interface ChallengeResponse {
+  status: string;
 }
 
 @Injectable({
@@ -29,17 +33,30 @@ export class WebauthnService {
         console.log('publicKey', publicKey);
         return navigator.credentials.create({ publicKey });
       }),
-      switchMap(result => {
-        console.log('result', result);
-        const makeCredResponse = this.publicKeyCredentialToJSON(result);
-        console.log('make cred response', makeCredResponse);
-        return this.post('/response', makeCredResponse);
-      })
+      switchMap(result => this.sendWebauthnResponse(result))
+    );
+  }
+
+  loginUser(user: User): Observable<any> {
+    return this.post<PublicKeyCredentialOptions>('/login', user).pipe(
+      switchMap(async response => {
+        console.log('response', response);
+        const publicKey = this.preformatGetAssertReq(response);
+        console.log('publicKey', publicKey);
+        return navigator.credentials.get({ publicKey });
+      }),
+      switchMap(result => this.sendWebauthnResponse(result))
     );
   }
 
 
   // UTILITIES
+
+  private sendWebauthnResponse(cred: CredentialType): Observable<any> { // todo: typing
+    const makeCredResponse = this.publicKeyCredentialToJSON(cred);
+    console.log('make cred response', makeCredResponse);
+    return this.post('/response', makeCredResponse);
+  }
 
   private post<T>(endpoint: string, body: any): Observable<T> {
     const url = this.pathPrefix + endpoint;
