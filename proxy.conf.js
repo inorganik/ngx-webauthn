@@ -2,7 +2,7 @@
 
 const PROXY_CONFIG = [
   {
-    context: ['/webauthn'],
+    context: ['/webauthn', '/auth-check'],
     target: 'http://localhost:3000',
     secure: false,
   },

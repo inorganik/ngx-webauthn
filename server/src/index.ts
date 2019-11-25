@@ -40,7 +40,13 @@ const webauthn = new WebAuthn({
   // },
   rpName: 'Inorganik Produce, inc.',
 });
+
 app.use('/webauthn', webauthn.initialize());
+
+// check if the user is signed in
+app.get('/auth-check', webauthn.authenticate(), (req, res) => {
+  res.status(200).json({ status: 'ok'});
+});
 
 // init
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

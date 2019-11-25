@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { WebauthnService } from '../webauthn.service';
+import { WebauthnService } from '../webauthn/webauthn.service';
 import { Router } from '@angular/router';
 
 @Component({

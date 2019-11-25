@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { PublicKeyCredentialOptions } from './webauthn.models';
 import base64url from 'webauthn/client/base64url.js';
@@ -47,6 +47,27 @@ export class WebauthnService {
       }),
       switchMap(result => this.sendWebauthnResponse(result))
     );
+  }
+
+  authCheck(): Observable<boolean> {
+    const opts = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.get<any>('/auth-check', opts).pipe(
+      map(response => {
+        if (response.status && response.status === 'ok') {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+  }
+
+  logout() {
+    // todo
   }
 
 
