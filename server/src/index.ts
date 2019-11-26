@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 // serve angular app
-app.use(express.static(path.join(__dirname, '../../dist/ngx-webauthn')));
+app.use(express.static(path.join(__dirname, './ngx-webauthn')));
 
 // webauthn routes
 const webauthn = new WebAuthn({
