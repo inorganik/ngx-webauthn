@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "rimraf dist && ng build --prod && npm run server:build",
+    "build": "ng build --prod && npm run server:build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
