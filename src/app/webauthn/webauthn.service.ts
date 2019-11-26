@@ -2,18 +2,20 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, switchMap, map } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { catchError, switchMap, map, tap } from 'rxjs/operators';
+import { throwError, Observable, of } from 'rxjs';
 import { PublicKeyCredentialOptions } from './webauthn.models';
 import base64url from 'webauthn/client/base64url.js';
+import { Router } from '@angular/router';
 
 export interface User {
   email: string;
   name?: string;
 }
 
-export interface ChallengeResponse {
+export interface StatusResponse {
   status: string;
+  message?: string;
 }
 
 @Injectable({
@@ -21,11 +23,12 @@ export interface ChallengeResponse {
 })
 export class WebauthnService {
 
-  pathPrefix = '/webauthn';
+  pathPrefix = '/webauthn'; // where you serve your webauthn routes
+  noAuthPath = '/login'; // where to redirect unauthenticated users
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  registerUser(user: User): Observable<any> {
+  registerUser(user: User): Observable<StatusResponse> {
     return this.post<PublicKeyCredentialOptions>('/register', user).pipe(
       switchMap(async response => {
         console.log('response', response);
@@ -37,7 +40,7 @@ export class WebauthnService {
     );
   }
 
-  loginUser(user: User): Observable<any> {
+  loginUser(user: User): Observable<StatusResponse> {
     return this.post<PublicKeyCredentialOptions>('/login', user).pipe(
       switchMap(async response => {
         console.log('response', response);
@@ -55,25 +58,27 @@ export class WebauthnService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.get<any>('/auth-check', opts).pipe(
+    return this.http.get<StatusResponse>('/auth-check', opts).pipe(
       map(response => {
         if (response.status && response.status === 'ok') {
           return true;
         } else {
           return false;
         }
-      })
+      }),
+      catchError(err => of(false))
     );
   }
 
-  logout() {
-    // todo
+  logout(): Observable<StatusResponse> {
+    return this.post<StatusResponse>('/logout', {}).pipe(
+      tap(() => this.router.navigateByUrl(this.noAuthPath))
+    );
   }
-
 
   // UTILITIES
 
-  private sendWebauthnResponse(cred: CredentialType): Observable<any> { // todo: typing
+  private sendWebauthnResponse(cred: CredentialType): Observable<StatusResponse> {
     const makeCredResponse = this.publicKeyCredentialToJSON(cred);
     console.log('make cred response', makeCredResponse);
     return this.post('/response', makeCredResponse);
