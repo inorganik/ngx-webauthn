@@ -1,5 +1,12 @@
 /// <reference types="@types/webappsec-credential-management" />
 
+/**
+ * WebAuthn Angular service for use with node 'webauthn' package
+ *
+ * Author: Jamie Perkins
+ * License: MIT
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';

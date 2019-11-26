@@ -7,6 +7,7 @@ import * as WebAuthn from 'webauthn';
 
 // app
 const port = process.env.PORT || 3000;
+const origin = process.env.ORIGIN || 'http://localhost:4200';
 const app = express();
 app.use(bodyParser.json());
 
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, '../../dist/ngx-webauthn')));
 
 // webauthn routes
 const webauthn = new WebAuthn({
-  origin: `http://localhost:4200`,
+  origin,
   usernameField: 'email', // field that uniquely id's user
   userFields: {
     email: 'email',
