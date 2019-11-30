@@ -7,7 +7,7 @@ import * as WebAuthn from 'webauthn';
 
 // app
 const port = process.env.PORT || 3000;
-const origin = process.env.ORIGIN || 'http://localhost:4200';
+const origin = process.env.ORIGIN || 'https://webauthn.inorganik.net';
 const app = express();
 app.use(bodyParser.json());
 
@@ -41,6 +41,7 @@ const webauthn = new WebAuthn({
   //   delete: async (id) => boolean,
   // },
   rpName: 'Inorganik Produce, inc.',
+  enableLogging: false
 });
 
 app.use('/webauthn', webauthn.initialize());
@@ -48,6 +49,11 @@ app.use('/webauthn', webauthn.initialize());
 // check if the user is signed in
 app.get('/auth-check', webauthn.authenticate(), (req, res) => {
   res.status(200).json({ status: 'ok'});
+});
+
+// redirect other routes to angular
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve('./dist/ngx-webauthn/index.html'));
 });
 
 // init
