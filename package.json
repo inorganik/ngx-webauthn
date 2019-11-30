@@ -1,15 +1,15 @@
 {
   "name": "ngx-webauthn",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && npm run server:build",
+    "build": "rimraf dist && ng build --prod && npm run server:build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "server:watch": "ORIGIN=http://localhost:4200 ts-node-dev --respawn --notify=false -P server/tsconfig.json server/src/index.ts",
-    "server:build": "ORIGIN=https://webauthn.netlify.com/ tsc -p server/tsconfig.json"
+    "server:build": "tsc -p server/tsconfig.json"
   },
   "private": true,
   "dependencies": {
@@ -29,7 +29,7 @@
     "iso-3166-1": "^1.1.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "webauthn": "^0.1.2",
+    "webauthn": "^0.2.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
