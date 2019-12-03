@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
     this.loginGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
+
+    if (!this.webauthnService.isSupported()) {
+      this.error = 'Web Authentication is not supported in this browser.';
+    }
   }
 
   submit() {

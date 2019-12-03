@@ -25,6 +25,10 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required]
     });
+
+    if (!this.webauthnService.isSupported()) {
+      this.error = 'Web Authentication is not supported in this browser.';
+    }
   }
 
   submit() {

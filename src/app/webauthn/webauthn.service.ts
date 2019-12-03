@@ -81,6 +81,10 @@ export class WebauthnService {
     );
   }
 
+  isSupported(): boolean {
+    return navigator && !!navigator.credentials;
+  }
+
   // UTILITIES
 
   private sendWebauthnResponse(cred: CredentialType): Observable<StatusResponse> {
