@@ -21,6 +21,7 @@ h1 {
 
 .btn-secondary {
   background: white;
+  color: $fallback;
   @include gradient();
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
