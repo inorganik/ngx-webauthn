@@ -38,8 +38,8 @@ export class WebauthnService {
   registerUser(user: User): Observable<StatusResponse> {
     return this.post<PublicKeyCredentialOptions>('/register', user).pipe(
       switchMap(async response => {
-        console.log('register: make cred request:', response);
         const publicKey = this.preformatMakeCredReq(response);
+        console.log('register: make cred request:', publicKey);
         return navigator.credentials.create({ publicKey });
       }),
       switchMap(result => this.sendWebauthnResponse(result))
@@ -49,8 +49,8 @@ export class WebauthnService {
   loginUser(user: User): Observable<StatusResponse> {
     return this.post<PublicKeyCredentialOptions>('/login', user).pipe(
       switchMap(async response => {
-        console.log('login: get assertion request', response);
         const publicKey = this.preformatGetAssertReq(response);
+        console.log('login: get assertion request', publicKey);
         return navigator.credentials.get({ publicKey });
       }),
       switchMap(result => this.sendWebauthnResponse(result))
