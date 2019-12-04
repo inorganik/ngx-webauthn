@@ -8,9 +8,9 @@ h1 {
 
 @mixin gradient() {
   // colorzilla.com/gradient-editor/#9cf253+0,09d3ff+100
-  background: -moz-linear-gradient(-45deg,  #9cf253 0%, #09d3ff 100%);
-  background: -webkit-linear-gradient(-45deg,  #9cf253 0%,#09d3ff 100%);
-  background: linear-gradient(135deg,  #9cf253 0%,#09d3ff 100%);
+  background-image: -moz-linear-gradient(-45deg,  #9cf253 0%, #09d3ff 100%);
+  background-image: -webkit-linear-gradient(-45deg,  #9cf253 0%,#09d3ff 100%);
+  background-image: linear-gradient(135deg,  #9cf253 0%,#09d3ff 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9cf253', endColorstr='#09d3ff',GradientType=1 );
 }
 
@@ -20,11 +20,9 @@ h1 {
 }
 
 .btn-secondary {
-  background: white;
-  color: $fallback;
   @include gradient();
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent !important;
 }
 
 .text-muted {

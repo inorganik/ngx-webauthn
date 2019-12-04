@@ -9,7 +9,7 @@
             <p *ngIf="showError('email')" class="text-danger text-left small">Please enter a valid email.</p>
           </div>
           <button type="submit" class="btn btn-primary d-block mx-auto mt-5 mb-3"><img src="assets/lock.svg" width="20" class="mr-3">Login</button>
-          <button type="button" class="btn btn-secondary d-block mx-auto mt-2" [routerLink]="['/register']">Register</button>
+          <a class="btn btn-secondary d-inline-block mx-auto mt-2" [routerLink]="['/register']">Register</a>
         </form>
         <div *ngIf="error" class="alert alert-danger text-left" role="alert">{{ error }}</div>
       </div>

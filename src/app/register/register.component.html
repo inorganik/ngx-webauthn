@@ -12,8 +12,8 @@
             <input type="text" class="form-control" formControlName="name" placeholder="Name" autocomplete="off" [ngClass]="{ 'is-invalid': showError('name') }">
             <p *ngIf="showError('name')" class="text-danger text-left small">Please enter a name.</p>
           </div>
-          <button type="submit" class="btn btn-primary mt-3"><img src="assets/lock.svg" width="20" class="mr-3">Submit</button>
-          <button type="button" class="btn btn-secondary d-block mx-auto mt-2" [routerLink]="['/login']">Login</button>
+          <button type="submit" class="btn btn-primary d-block mx-auto mt-3 mb-3"><img src="assets/lock.svg" width="20" class="mr-3">Submit</button>
+          <a class="btn btn-secondary d-inline-block mx-auto mt-2" [routerLink]="['/login']"><span>Login</span></a>
         </form>
         <div *ngIf="error" class="alert alert-danger text-left" role="alert">{{ error }}</div>
       </div>
